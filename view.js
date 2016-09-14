@@ -17,9 +17,14 @@ TETRIS.VIEW.render = function(data) {
   data.forEach(function(row) {
     TETRIS.VIEW.$gameGrid.append($('<tr/>'));
     row.forEach(function(cell) {
-      $('tr').last().append($(["<td>",cell,"</td>"].join('')));
+      $('tr').last().append(TETRIS.VIEW.createCell(cell));
+      // $('tr').last().append($(["<td>",cell,"</td>"].join('')));
     });
   });
+};
+
+TETRIS.VIEW.createCell = function(color) {
+  return $('<td>').addClass(color);
 };
 
 TETRIS.VIEW.stylify = function(cell) {
