@@ -1,4 +1,5 @@
 var TETRIS = TETRIS || {};
 
+TETRIS.MODEL = {};
 TETRIS.VIEW = {};
 TETRIS.CONTROLLER = {};

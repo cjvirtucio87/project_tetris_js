@@ -1,25 +1,47 @@
 var TETRIS = TETRIS || {};
-TETRIS.MODEL = {};
 
 TETRIS.MODEL.init = function() {
-  TETRIS.MODEL.grid = [];
+  var array = new Array(4);
+  for (var i = 0; i < array.length; i++) {
+    array[i] = new Array(5);
+    for (var j = 0; j < array[i].length; j++) {
+      array[i][j] = '_';
+    }
+  }
+  TETRIS.MODEL.grid = array;
+};
+
+TETRIS.MODEL.update = function() {
+  // advancing positions of pieces
+  // checking if we have a full row
+};
+
+TETRIS.createPiece = function () {
+  var middle = Math.floor(this.grid[0].length/2);
+  var position = new Pos(middle,0);
+  var newPiece = new TETRIS.MODEL.Piece();
+  newPiece.create({coords: [position],
+                   type: 'single'});
+  return newPiece;
 };
 
 TETRIS.MODEL.Piece = function Piece(){
 };
 
-// APP.Spaceship = function Spaceship (x,y,degrees, velocity) {
-//   this.coordX = x;
-//   this.coordY = y;
-//   this.degrees = degrees || 90;
-//   this.velocity = velocity || 1;
-// };
+TETRIS.MODEL.Piece.prototype.create = function(options) {
+  this.setOccupiedCoords(options.coords);
+  this.setType(options.type);
+};
 
 TETRIS.MODEL.Piece.prototype.setOccupiedCoords = function(coords) {
   this.occupiedCoords = coords;
 };
 
-TETRIS.MODEL.Piece.prototype.getOccupiedCoords = function() {
-  return this.occupiedCoords;
+TETRIS.MODEL.Piece.prototype.setType = function(options) {
+  this.type = options.type;
 };
 
+TETRIS.MODEL.Pos = function Pos(x, y) {
+  this.x = x;
+  this.y = y;
+};
