@@ -1,9 +1,9 @@
 var TETRIS = TETRIS || {};
 
 TETRIS.MODEL.init = function() {
-  var array = new Array(4);
+  var array = new Array(20);
   for (var i = 0; i < array.length; i++) {
-    array[i] = new Array(5);
+    array[i] = new Array(10);
     for (var j = 0; j < array[i].length; j++) {
       array[i][j] = '_';
     }
