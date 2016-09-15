@@ -11,7 +11,7 @@ TETRIS.View = (function () {
     $gameGrid = $('table.game-grid');
   };
 
-  var _clearCache = function() {
+  var _clearCachedCells = function() {
     $gameGrid.empty();
   };
 
@@ -20,7 +20,7 @@ TETRIS.View = (function () {
   };
 
   var render = function(data) {
-    _clearCache();
+    _clearCacheCells();
     data.forEach(function(row) {
       $gameGrid.append($('<tr/>'));
       row.forEach(function(cell) {

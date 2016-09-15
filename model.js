@@ -33,6 +33,10 @@ TETRIS.Model = (function() {
     return _grid;
   };
 
+  var getCurrentPieceCoords = function() {
+    return _currentPiece.coords;
+  };
+
   var _applyPieces = function(array) {
     _pieces.forEach(function(piece) {
       piece.coords.forEach(function(coord) {
@@ -42,7 +46,7 @@ TETRIS.Model = (function() {
     return array;
   };
 
-  // Increment y coordinate of every 'coord' in occupied by the piece.
+  // Function composition for movement.
   var _movePiece = function(axis,mutate) {
     return function () {
       _currentPiece.coords.forEach(function(coord) {
@@ -54,6 +58,7 @@ TETRIS.Model = (function() {
 
   var _movePieceForward = _movePiece('y',function(coord) { return ++coord.y; });
   var _movePieceLeft = _movePiece('x',function(coord) { return --coord.x; });
+  var _movePieceRight = _movePiece('x',function(coord) { return ++coord.x; });
 
   var _createPiece = function () {
     var middle = Math.floor(_grid[0].length/2);
@@ -67,6 +72,8 @@ TETRIS.Model = (function() {
   return {
     init: init,
     getGrid: getGrid,
-    update: update
+    update: update,
+    bounds: {x: 10, y: 20},
+    getCurrentPieceCoords: getCurrentPieceCoords
   };
 })();
