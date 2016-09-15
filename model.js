@@ -4,9 +4,17 @@ TETRIS.Model = (function() {
 
   var _pieces = [];
   var _grid;
+  var _currentPiece;
 
   var init = function() {
     _grid = _createGrid();
+    var newPiece = _createPiece();
+    _currentPiece = newPiece;
+  };
+
+  var update = function() {
+    _grid = _createGrid();
+    _movePieceForward();
   };
 
   var _createGrid = function() {
@@ -34,10 +42,18 @@ TETRIS.Model = (function() {
     return array;
   };
 
-  var update = function() {
-    _pieces.push(_createPiece());
-    _grid = _createGrid();
+  // Increment y coordinate of every 'coord' in occupied by the piece.
+  var _movePiece = function(axis,mutate) {
+    return function () {
+      _currentPiece.coords.forEach(function(coord) {
+         coord[axis] = mutate(coord);
+        _grid[coord.y][coord.x] = _currentPiece.color;
+      });
+    };
   };
+
+  var _movePieceForward = _movePiece('y',function(coord) { return ++coord.y; });
+  var _movePieceLeft = _movePiece('x',function(coord) { return --coord.x; });
 
   var _createPiece = function () {
     var middle = Math.floor(_grid[0].length/2);

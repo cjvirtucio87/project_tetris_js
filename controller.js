@@ -14,11 +14,11 @@ TETRIS.Controller = (function(model, view) {
   };
 
   var _tic = function() {
-    return window.setInterval(function() {
-                                model.update();
-                                var grid = model.getGrid();
-                                view.render(grid);
-                            }, 2000);
+    window.setInterval(function() {
+                          model.update();
+                          var grid = model.getGrid();
+                          view.render(grid);
+                      }, 2000);
   };
 
   return {
