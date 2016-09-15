@@ -7,13 +7,16 @@ TETRIS.Model = (function() {
 
   var init = function() {
     _grid = _createGrid();
-    var newPiece = _createPiece();
-    _currentPiece = newPiece;
+    _currentPiece = _createPiece();
   };
 
   var update = function() {
     _grid = _createGrid();
-    _movePieceForward();
+    if (_checkIfAtEnd()) {
+      _currentPiece = _createPiece();
+    } else {
+      _movePieceForward();
+    }
   };
 
   var _createGrid = function() {
@@ -116,6 +119,13 @@ TETRIS.Model = (function() {
         _movePieceForward();
         break;
     }
+  };
+
+  var _checkIfAtEnd = function () {
+    var highestCoord = _currentPiece.coords.reduce(function(acc,block) {
+      return { y: Math.max(acc.y,block.y), x: Math.min(acc.x,block.x)};
+    }, {x: Number.MAX_SAFE_INTEGER, y: 1});
+    return !(_grid[highestCoord.y+1]) || _grid[highestCoord.y+1][highestCoord.x] !== '_';
   };
 
   return {
