@@ -69,11 +69,26 @@ TETRIS.Model = (function() {
     return newPiece;
   };
 
+  var updateCurrentPiece = function (keyPress) {
+    switch (keyPress) {
+      case 4:
+        _movePieceLeft();
+        break;
+      case 6:
+        _movePieceRight();
+        break;
+      case 8:
+        _movePieceForward();
+        break;
+    }
+  };
+
   return {
     init: init,
     getGrid: getGrid,
     update: update,
     bounds: {x: 10, y: 20},
-    getCurrentPieceCoords: getCurrentPieceCoords
+    getCurrentPieceCoords: getCurrentPieceCoords,
+    updateCurrentPiece: updateCurrentPiece
   };
 })();

@@ -1,6 +1,11 @@
 var TETRIS = TETRIS || {};
 
 TETRIS.Validations = (function () {
+  var _model;
+
+  var init = function (model) {
+    _model = model;
+  };
   var _KEY_PRESS_CODES = {
     37: 4,
     38: 8,
@@ -16,43 +21,46 @@ TETRIS.Validations = (function () {
   };
 
   var filterKeyPress = function (event) {
-    if (View.KEY_PRESS_CODES[event.which]) {
-      return View.KEY_PRESS_CODES[event.which];
+    if (_KEY_PRESS_CODES[event.which]) {
+      return _KEY_PRESS_CODES[event.which];
     }
   };
 
-  var _validateMovementBounds = function (keyPress) {
+  var validateMovementBounds = function (keyPress) {
     switch (keyPress) {
       case 4:
-        return _validateLeft();
+        return _validateLeft(keyPress);
       case 6:
-        return _validateRight();
+        return _validateRight(keyPress);
       case 2:
-        return _validateRight();
+        return _validateRight(keyPress);
     }
   };
 
+  // Using function composition to dynamically create validations.
   var _checkAllBlocks = function (check) {
     return function(keyPress) {
-      return model.getCurrentPieceCoords.every(check);
+      return _model.getCurrentPieceCoords().every(check(keyPress));
     };
   };
 
   var _validateLeft = _checkAllBlocks(function(coord) {
-    return (coord.x + _COORDINATE_CHANGE[keyPress]) > 0;
+    return function (keyPress) {
+      return (coord.x + _COORDINATE_CHANGE[keyPress]) > 0;
+    };
   });
 
   var _validateDown = _checkAllBlocks(function(coord) {
-    return (coord.y + _COORDINATE_CHANGE[keyPress]) < model.bounds.y;
+    return (coord.y + _COORDINATE_CHANGE[keyPress]) < _model.bounds.y;
   });
 
   var _validateRight = _checkAllBlocks(function(coord) {
-    return (coord.x + _COORDINATE_CHANGE[keyPress]) < model.bounds.x;
+    return (coord.x + _COORDINATE_CHANGE[keyPress]) < _model.bounds.x;
   });
 
   return {
     filterKeyPress: filterKeyPress,
-    validateMovement: validateMovementBounds
+    validateMovementBounds: validateMovementBounds,
+    init: init
   };
-
-})(TETRIS.Model);
+})();

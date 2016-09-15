@@ -20,7 +20,7 @@ TETRIS.View = (function () {
   };
 
   var render = function(data) {
-    _clearCacheCells();
+    _clearCachedCells();
     data.forEach(function(row) {
       $gameGrid.append($('<tr/>'));
       row.forEach(function(cell) {
@@ -29,7 +29,7 @@ TETRIS.View = (function () {
     });
   };
 
-  TETRIS.View.stylify = function(cell) {
+  var stylify = function(cell) {
   };
 
   return {
