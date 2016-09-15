@@ -46,7 +46,7 @@ TETRIS.Validations = (function () {
 
   var _validateLeft = _checkAllBlocks(function(keyPress) {
     return function (coord) {
-      return (coord.x + _COORDINATE_CHANGE[keyPress].x) > 0;
+      return (coord.x + _COORDINATE_CHANGE[keyPress].x) >= 0;
     };
   });
 
