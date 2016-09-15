@@ -1,7 +1,6 @@
 var TETRIS = TETRIS || {};
 
 TETRIS.Model = (function() {
-
   var _pieces = [];
   var _grid;
   var _currentPiece;
@@ -61,12 +60,48 @@ TETRIS.Model = (function() {
   var _movePieceRight = _movePiece('x',function(coord) { return ++coord.x; });
 
   var _createPiece = function () {
-    var middle = Math.floor(_grid[0].length/2);
-    var position = new TETRIS.Pos(middle,0);
+    var position = _makePos();
+    var color = _randomColor();
     var newPiece = new TETRIS.Piece();
-    newPiece.create({coords: [position],
-                     color: 'grey'});
+    var coords = _makeCoords(color, position);
+    newPiece.create({coords: coords,
+                     color: color});
     return newPiece;
+  };
+
+  var _makePos = function() {
+    var middle = Math.floor(_grid[0].length/2);
+    var position = new TETRIS.Pos(middle,1);
+    return position;
+  };
+
+  var _randomColor = function() {
+    return ['gray','yellow','purple','orange'][Math.floor(Math.random()*4)];
+  };
+
+  var _makeCoords = function(color, position) {
+    switch (color) {
+      case 'gray':
+        return [position];
+      case 'yellow':
+        var yellowCoords = [position];
+        yellowCoords.push(new TETRIS.Pos(position.x-1,position.y));
+        yellowCoords.push(new TETRIS.Pos(position.x+1,position.y));
+        yellowCoords.push(new TETRIS.Pos(position.x+1,position.y-1));
+        return yellowCoords;
+      case 'purple':
+        var purpleCoords = [position];
+        purpleCoords.push(new TETRIS.Pos(position.x-1,position.y));
+        purpleCoords.push(new TETRIS.Pos(position.x-1,position.y-1));
+        purpleCoords.push(new TETRIS.Pos(position.x,position.y-1));
+        return purpleCoords;
+      case 'orange':
+        var orangeCoords = [position];
+        orangeCoords.push(new TETRIS.Pos(position.x-1,position.y));
+        orangeCoords.push(new TETRIS.Pos(position.x+1,position.y));
+        orangeCoords.push(new TETRIS.Pos(position.x+2,position.y));
+        return orangeCoords;
+    }
   };
 
   var updateCurrentPiece = function (keyPress) {

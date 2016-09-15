@@ -6,13 +6,25 @@
 }
 
 .cell {
-    
+
 }
 
 td {
     border: 1px solid black;
 }
 
-.grey {
-    background-color: grey;
+.gray {
+    background-color: gray;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.purple {
+    background-color: purple;
+}
+
+.yellow {
+    background-color: yellow;
 }

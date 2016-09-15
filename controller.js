@@ -33,8 +33,3 @@ TETRIS.Controller = (function(model, view, handlers, validations) {
     stopLoop: stopLoop
   };
 })(TETRIS.Model,TETRIS.View,TETRIS.EventHandlers,TETRIS.Validations);
-
-
-// game loop sets interval
-// separate event listeners inside the view
-// game loop inside controller to update the model and update the view
