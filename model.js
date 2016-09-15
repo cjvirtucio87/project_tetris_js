@@ -13,6 +13,7 @@ TETRIS.Model = (function() {
   var update = function() {
     _grid = _createGrid();
     if (_checkIfAtEnd()) {
+      _setPiece();
       _currentPiece = _createPiece();
     } else {
       _movePieceForward();
@@ -56,6 +57,10 @@ TETRIS.Model = (function() {
         _grid[coord.y][coord.x] = _currentPiece.color;
       });
     };
+  };
+
+  var _setPiece = function() {
+    _pieces.push(_currentPiece);
   };
 
   var _movePieceForward = _movePiece('y',function(coord) { return ++coord.y; });
