@@ -21,7 +21,7 @@ TETRIS.Controller = (function(model, view, handlers, validations) {
                           model.update();
                           var grid = model.getGrid();
                           view.render(grid);
-                      }, 2000);
+                      }, 200);
   };
 
   var _attachEventHandlers = function () {

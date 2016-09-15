@@ -44,18 +44,22 @@ TETRIS.Validations = (function () {
     };
   };
 
-  var _validateLeft = _checkAllBlocks(function(coord) {
-    return function (keyPress) {
-      return (coord.x + _COORDINATE_CHANGE[keyPress]) > 0;
+  var _validateLeft = _checkAllBlocks(function(keyPress) {
+    return function (coord) {
+      return (coord.x + _COORDINATE_CHANGE[keyPress].x) > 0;
     };
   });
 
-  var _validateDown = _checkAllBlocks(function(coord) {
-    return (coord.y + _COORDINATE_CHANGE[keyPress]) < _model.bounds.y;
+  var _validateDown = _checkAllBlocks(function(keyPress) {
+    return function (coord) {
+      return (coord.y + _COORDINATE_CHANGE[keyPress].y) < _model.bounds.y;
+    };
   });
 
-  var _validateRight = _checkAllBlocks(function(coord) {
-    return (coord.x + _COORDINATE_CHANGE[keyPress]) < _model.bounds.x;
+  var _validateRight = _checkAllBlocks(function(keyPress) {
+    return function (coord) {
+      return (coord.x + _COORDINATE_CHANGE[keyPress].x) < _model.bounds.x;
+    };
   });
 
   return {
