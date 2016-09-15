@@ -1,27 +1,32 @@
 var TETRIS = TETRIS || {};
 
-TETRIS.CONTROLLER.init = function(model, view) {
-  this.model = model;
-  this.view = view;
-  this.model.init();
-  this.view.init();
-  this.tic();
-};
+TETRIS.Controller = (function(model, view) {
+  var _interval;
 
-TETRIS.CONTROLLER.tic = function() {
-  this.interval =
-    (function(that) {
-      return window.setInterval(function() {
-        that.model.update();
-        var grid = that.model.getGrid();
-        that.view.render(grid);
-      }, 2000);
-    })(this);
-};
+  var init = function() {
+    model.init();
+    view.init();
+    _tic();
+  };
 
-TETRIS.CONTROLLER.stopLoop = function() {
-  window.clearInterval(this.interval);
-};
+  var stopLoop = function() {
+    window.clearInterval(this.interval);
+  };
+
+  var _tic = function() {
+    return window.setInterval(function() {
+                                model.update();
+                                var grid = model.getGrid();
+                                view.render(grid);
+                            }, 2000);
+  };
+
+  return {
+    init: init,
+    stopLoop: stopLoop
+  };
+})(TETRIS.Model,TETRIS.View);
+
 
 // game loop sets interval
 // separate event listeners inside the view

@@ -1,30 +1,40 @@
 var TETRIS = TETRIS || {};
 
-TETRIS.VIEW.init = function () {
-  this.cacheDOM();
-};
+TETRIS.View = (function () {
+  var $gameGrid;
 
-TETRIS.VIEW.cacheDOM = function() {
-  this.$gameGrid = $('table.game-grid');
-};
+  var init = function () {
+    _cacheDOM();
+  };
 
-TETRIS.VIEW.clearCache = function() {
-  this.$gameGrid.empty();
-};
+  var _cacheDOM = function() {
+    $gameGrid = $('table.game-grid');
+  };
 
-TETRIS.VIEW.render = function(data) {
-  TETRIS.VIEW.clearCache();
-  data.forEach(function(row) {
-    TETRIS.VIEW.$gameGrid.append($('<tr/>'));
-    row.forEach(function(cell) {
-      $('tr').last().append(TETRIS.VIEW.createCell(cell));
+  var _clearCache = function() {
+    $gameGrid.empty();
+  };
+
+  var _createCell = function(color) {
+    return $('<td>').addClass(color);
+  };
+
+  var render = function(data) {
+    _clearCache();
+    data.forEach(function(row) {
+      $gameGrid.append($('<tr/>'));
+      row.forEach(function(cell) {
+        $('tr').last().append(_createCell(cell));
+      });
     });
-  });
-};
+  };
 
-TETRIS.VIEW.createCell = function(color) {
-  return $('<td>').addClass(color);
-};
+  TETRIS.View.stylify = function(cell) {
+  };
 
-TETRIS.VIEW.stylify = function(cell) {
-};
+  return {
+    init: init,
+    $gameGrid: $gameGrid,
+    render: render
+  };
+})();

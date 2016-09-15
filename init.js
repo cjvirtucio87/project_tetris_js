@@ -1,5 +1,5 @@
 var TETRIS = TETRIS || {};
 
-TETRIS.MODEL = {};
-TETRIS.VIEW = {};
-TETRIS.CONTROLLER = {};
+TETRIS.Model = {};
+TETRIS.View = {};
+TETRIS.Controller = {};
