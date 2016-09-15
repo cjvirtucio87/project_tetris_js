@@ -18,7 +18,6 @@ TETRIS.VIEW.render = function(data) {
     TETRIS.VIEW.$gameGrid.append($('<tr/>'));
     row.forEach(function(cell) {
       $('tr').last().append(TETRIS.VIEW.createCell(cell));
-      // $('tr').last().append($(["<td>",cell,"</td>"].join('')));
     });
   });
 };

@@ -1,7 +1,5 @@
 var TETRIS = TETRIS || {};
 
-
-
 $(document).ready(function() {
-  TETRIS.CONTROLLER.init(TETRIS.MODEL, TETRIS.VIEW);
+  TETRIS.CONTROLLER.init(TETRIS.Model, TETRIS.VIEW);
 });

@@ -13,7 +13,7 @@ TETRIS.CONTROLLER.tic = function() {
     (function(that) {
       return window.setInterval(function() {
         that.model.update();
-        var grid = TETRIS.MODEL.grid;
+        var grid = that.model.getGrid();
         that.view.render(grid);
       }, 2000);
     })(this);

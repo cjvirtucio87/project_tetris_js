@@ -1,63 +1,56 @@
 var TETRIS = TETRIS || {};
 
-TETRIS.MODEL.init = function() {
-  this.pieces = [];
-  this.grid = this.createGrid();
-};
+TETRIS.Model = (function() {
 
-TETRIS.MODEL.createGrid = function() {
-  var array = new Array(20);
-  for (var i = 0; i < array.length; i++) {
-    array[i] = new Array(10);
-    for (var j = 0; j < array[i].length; j++) {
-      array[i][j] = '_';
+  var _pieces = [];
+  var _grid;
+
+  var init = function() {
+    _grid = _createGrid();
+  };
+
+  var _createGrid = function() {
+    var array = new Array(20);
+    for (var i = 0; i < array.length; i++) {
+      array[i] = new Array(10);
+      for (var j = 0; j < array[i].length; j++) {
+        array[i][j] = '_';
+      }
     }
-  }
-  array = this.applyPieces(array);
-  return array;
-};
+    array = _applyPieces(array);
+    return array;
+  };
 
-TETRIS.MODEL.applyPieces = function(array) {
-  this.pieces.forEach(function(piece) {
-    piece.coords.forEach(function(coord) {
-      array[coord.y][coord.x] = piece.color;
+  var getGrid = function() {
+    return _grid;
+  };
+
+  var _applyPieces = function(array) {
+    _pieces.forEach(function(piece) {
+      piece.coords.forEach(function(coord) {
+        array[coord.y][coord.x] = piece.color;
+      });
     });
-  });
-  return array;
-};
+    return array;
+  };
 
-TETRIS.MODEL.update = function() {
-  this.pieces.push(this.createPiece());
-  this.grid = this.createGrid();
-  // checking if we have a full row
-};
+  var update = function() {
+    _pieces.push(_createPiece());
+    _grid = _createGrid();
+  };
 
-TETRIS.MODEL.createPiece = function () {
-  var middle = Math.floor(this.grid[0].length/2);
-  var position = new this.Pos(middle,0);
-  var newPiece = new TETRIS.MODEL.Piece();
-  newPiece.create({coords: [position],
-                   color: 'grey'});
-  return newPiece;
-};
+  var _createPiece = function () {
+    var middle = Math.floor(_grid[0].length/2);
+    var position = new TETRIS.Pos(middle,0);
+    var newPiece = new TETRIS.Piece();
+    newPiece.create({coords: [position],
+                     color: 'grey'});
+    return newPiece;
+  };
 
-TETRIS.MODEL.Piece = function Piece(){
-};
-
-TETRIS.MODEL.Piece.prototype.create = function(options) {
-  this.setOccupiedCoords(options.coords);
-  this.setColor(options.color);
-};
-
-TETRIS.MODEL.Piece.prototype.setOccupiedCoords = function(coords) {
-  this.coords = coords;
-};
-
-TETRIS.MODEL.Piece.prototype.setColor = function(color) {
-  this.color = color;
-};
-
-TETRIS.MODEL.Pos = function Pos(x, y) {
-  this.x = x;
-  this.y = y;
-};
+  return {
+    init: init,
+    getGrid: getGrid,
+    update: update
+  };
+})();
